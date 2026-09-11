@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Juno Solutions — Marketing Site
 
-## Getting Started
+Static marketing site for Juno Solutions, an after-hours lead capture and
+appointment setting service for new-home builders.
 
-First, run the development server:
+Built with Next.js (App Router), TypeScript, and Tailwind CSS. No CMS, no
+database, no backend — every route is prerendered as static HTML.
+
+## Setup
+
+```bash
+npm install
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs at http://localhost:3000. To use a different port:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run dev -- -p 3100
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Script | What it does |
+| --- | --- |
+| `npm run dev` | Dev server with hot reload |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build locally |
+| `npm run lint` | ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+## Deploying to Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The site is a stock Next.js app with no environment variables and no runtime
+dependencies, so it deploys as-is.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push this directory to a Git repository.
+2. In Vercel, choose **Add New → Project** and import that repository.
+3. Accept the detected defaults (framework: Next.js, build: `npm run build`).
+4. Deploy.
 
-## Deploy on Vercel
+To deploy from your machine instead:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx vercel --prod
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before going live, set the production domain in `metadataBase` in
+`src/app/layout.tsx` — it currently points at `https://junosolutions.co` and is
+what resolves Open Graph URLs.
+
+## Structure
+
+```
+src/
+  app/
+    layout.tsx          Root layout, fonts, metadata, skip link
+    page.tsx            Landing page — composes the sections below
+    globals.css         Design tokens, base styles, load-in animation
+    contact/page.tsx    Contact page
+    privacy/page.tsx    Placeholder privacy notice
+    terms/page.tsx      Placeholder terms
+  components/
+    Nav.tsx             Sticky nav, transparent until scrolled
+    Footer.tsx
+    ContactForm.tsx     Client-side validation only (see below)
+    LegalPage.tsx       Shared shell for /privacy and /terms
+    sections/           One component per landing-page section
+    ui/                 Container, Section, Button, Reveal
+```
+
+Page composition lives in `src/app/page.tsx`; each section is a standalone
+component under `src/components/sections/` and can be reordered or removed
+without touching the others.
+
+## Design
+
+Black, white, and grey only — no accent color. Contrast and type carry the
+hierarchy. Tokens are defined in the `@theme inline` block in
+`src/app/globals.css` (Tailwind v4 has no `tailwind.config.ts`):
+
+| Token | Value | Used for |
+| --- | --- | --- |
+| `ink` | `#0A0A0A` | Primary text, dark bands |
+| `grey-50` | `#FAFAFA` | Alternating section backgrounds |
+| `grey-100` | `#F5F5F5` | Subtle fills |
+| `grey-200` | `#E5E5E5` | 1px borders and rules |
+| `grey-400` | `#A3A3A3` | Secondary text **on dark only** |
+| `grey-500` | `#737373` | Eyebrow labels, meta text |
+| `grey-600` | `#525252` | Body copy on white |
+
+Contrast note: `grey-400` does not meet WCAG AA on a white background. Use it
+only on `ink` surfaces. `grey-500` and `grey-600` both pass on white.
+
+### Motion
+
+Two mechanisms, deliberately kept separate:
+
+- **Above the fold** uses the CSS-only `.reveal-on-load` class. It animates as
+  soon as the stylesheet parses rather than waiting for hydration, so the hero
+  never flashes blank and the LCP element is not gated on JavaScript.
+- **Below the fold** uses `<Reveal>`, which fades and slides content in once on
+  first scroll into view via `IntersectionObserver`.
+
+Both collapse to no animation under `prefers-reduced-motion`. With JavaScript
+disabled, a `<noscript>` rule in the root layout forces all `<Reveal>` content
+visible.
+
+## Contact form
+
+`src/components/ContactForm.tsx` validates on the client and **does not submit
+anywhere**. The submit handler is stubbed with a `TODO` and simply shows the
+success state; entered values are discarded.
+
+To make it live, replace that stub with a call to whatever destination you
+want — a form endpoint, a CRM webhook, or a Next.js route handler. Note that
+adding a route handler means the site is no longer fully static.
+
+## Placeholder content to replace before launch
+
+- `/privacy` and `/terms` are plain-language placeholders, not reviewed legal
+  copy.
+- `hello@junosolutions.co` appears in the nav, footer, contact page, and both
+  legal pages.
+- `metadataBase` in `src/app/layout.tsx`.
