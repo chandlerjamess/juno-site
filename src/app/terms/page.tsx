@@ -36,10 +36,10 @@ export default function TermsPage() {
         <p>
           Questions about these terms? Email{" "}
           <a
-            href="mailto:hello@junosolutions.co"
+            href="mailto:sales@junosolutions.co"
             className="text-ink underline decoration-grey-400 underline-offset-4 hover:decoration-ink"
           >
-            hello@junosolutions.co
+            sales@junosolutions.co
           </a>
           .
         </p>

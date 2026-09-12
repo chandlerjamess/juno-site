@@ -122,6 +122,6 @@ adding a route handler means the site is no longer fully static.
 
 - `/privacy` and `/terms` are plain-language placeholders, not reviewed legal
   copy.
-- `hello@junosolutions.co` appears in the nav, footer, contact page, and both
+- `sales@junosolutions.co` appears in the nav, footer, contact page, and both
   legal pages.
 - `metadataBase` in `src/app/layout.tsx`.

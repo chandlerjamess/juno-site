@@ -29,9 +29,9 @@ export default function PrivacyPage() {
       <section>
         <h2>Client data</h2>
         <p>
-          Information we handle on behalf of a builder client — call recordings,
-          transcripts, consent records, and lead details — belongs to that
-          client and is governed by our agreement with them, not by this notice.
+          Information we handle on behalf of a builder client, including call
+          recordings, transcripts, consent records, and lead details, belongs to
+          that client and is governed by our agreement with them, not by this notice.
         </p>
       </section>
       <section>
@@ -39,10 +39,10 @@ export default function PrivacyPage() {
         <p>
           Questions, or want your information removed? Email{" "}
           <a
-            href="mailto:hello@junosolutions.co"
+            href="mailto:sales@junosolutions.co"
             className="text-ink underline decoration-grey-400 underline-offset-4 hover:decoration-ink"
           >
-            hello@junosolutions.co
+            sales@junosolutions.co
           </a>
           .
         </p>

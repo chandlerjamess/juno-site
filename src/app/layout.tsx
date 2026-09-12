@@ -25,13 +25,13 @@ const siteUrl = siteHost ? `https://${siteHost}` : "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Juno Solutions — After-hours leads, answered and booked",
-    template: "%s — Juno Solutions",
+    default: "Juno Solutions | After-hours leads, answered and booked",
+    template: "%s | Juno Solutions",
   },
   description:
     "We answer every after-hours call and web inquiry for new-home builders, qualify the buyer against your criteria, and book the appointment. It lands in the CRM your team already uses.",
   openGraph: {
-    title: "Juno Solutions — After-hours leads, answered and booked",
+    title: "Juno Solutions | After-hours leads, answered and booked",
     description:
       "We answer every after-hours call and web inquiry for new-home builders, qualify the buyer, and book the appointment on your team's calendar.",
     type: "website",

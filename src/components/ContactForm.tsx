@@ -102,16 +102,16 @@ export default function ContactForm() {
         className="border border-grey-200 bg-grey-50 p-8 sm:p-10"
       >
         <h2 className="text-2xl font-semibold tracking-[-0.025em]">
-          Thanks — we have it.
+          Thanks, we have it.
         </h2>
         <p className="mt-3 max-w-md text-base leading-relaxed text-grey-600">
           Someone from Juno will reach out within one business day to find a
           time. If it is urgent, email us directly at{" "}
           <a
-            href="mailto:hello@junosolutions.co"
+            href="mailto:sales@junosolutions.co"
             className="text-ink underline decoration-grey-400 underline-offset-4 hover:decoration-ink"
           >
-            hello@junosolutions.co
+            sales@junosolutions.co
           </a>
           .
         </p>

@@ -32,10 +32,10 @@ export default function ContactPage() {
                 <p className="mt-8 border-t border-grey-200 pt-6 text-sm leading-relaxed text-grey-600">
                   Prefer email? Reach us at{" "}
                   <a
-                    href="mailto:hello@junosolutions.co"
+                    href="mailto:sales@junosolutions.co"
                     className="text-ink underline decoration-grey-400 underline-offset-4 transition-colors hover:decoration-ink"
                   >
-                    hello@junosolutions.co
+                    sales@junosolutions.co
                   </a>
                   .
                 </p>

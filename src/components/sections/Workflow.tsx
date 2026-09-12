@@ -8,7 +8,7 @@ const points = [
   },
   {
     title: "Your CRM, your fields",
-    body: "Leads and appointments write into the records your counselors already open every morning — Lasso, HubSpot, Salesforce, or whatever you run today.",
+    body: "Leads and appointments write into the records your counselors already open every morning. Lasso, HubSpot, Salesforce, or whatever you run today.",
   },
   {
     title: "Your rules",

@@ -23,10 +23,10 @@ export default function Hero() {
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <ButtonLink href="/contact">Book a call</ButtonLink>
             <a
-              href="#how-it-works"
+              href="#demo"
               className="text-sm font-medium text-grey-600 underline decoration-grey-200 underline-offset-[6px] transition-colors hover:text-ink hover:decoration-ink"
             >
-              See how it works
+              Or call it right now &mdash; (469) 290-6054
             </a>
           </div>
         </div>
@@ -36,8 +36,7 @@ export default function Hero() {
           style={{ animationDelay: "120ms" }}
         >
           <p className="border-t border-grey-200 pt-6 font-mono text-xs uppercase tracking-[0.18em] text-grey-500">
-            Nights, weekends, and holidays &mdash; answered live, in under a
-            minute
+            Nights, weekends, and holidays. Answered live, in under a minute
           </p>
         </div>
       </Container>

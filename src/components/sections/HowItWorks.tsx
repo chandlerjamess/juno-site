@@ -8,7 +8,7 @@ const steps = [
   },
   {
     title: "We qualify",
-    body: "Budget, timeline, community, financing, and whether they have a home to sell — asked against your criteria, not a generic script. Buyers who are ready move forward. The rest are logged and nurtured, not dropped.",
+    body: "Budget, timeline, community, financing, and whether they have a home to sell. All asked against your criteria, not a generic script. Buyers who are ready move forward. The rest are logged and nurtured, not dropped.",
   },
   {
     title: "We book",

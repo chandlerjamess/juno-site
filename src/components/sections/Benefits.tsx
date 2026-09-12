@@ -24,7 +24,7 @@ const benefits = [
   },
   {
     title: "A straight answer on what after hours is worth",
-    body: "You see how many calls came in, what happened to each one, and how many turned into appointments. Reporting arrives to you — there is nothing to go log in and pull.",
+    body: "You see how many calls came in, what happened to each one, and how many turned into appointments. Reporting arrives to you. There is nothing to go log in and pull.",
   },
 ];
 

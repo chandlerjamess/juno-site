@@ -18,10 +18,10 @@ export default function Footer() {
 
           <div className="flex flex-col gap-3 text-sm md:items-end">
             <a
-              href="mailto:hello@junosolutions.co"
+              href="mailto:sales@junosolutions.co"
               className="text-grey-600 transition-colors hover:text-ink"
             >
-              hello@junosolutions.co
+              sales@junosolutions.co
             </a>
             <nav aria-label="Footer" className="flex gap-6">
               <Link

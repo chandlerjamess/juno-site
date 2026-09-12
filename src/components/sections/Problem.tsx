@@ -23,7 +23,7 @@ export default function Problem() {
         <SectionHeading
           eyebrow="The problem"
           title="Nobody answers. So they call the next builder."
-          lede="Buyers shop for homes on their own time — evenings, weekends, and the hours right after they leave a model. That is exactly when your sales floor is empty."
+          lede="Buyers shop for homes on their own time. Evenings, weekends, and the hours right after they leave a model. That is exactly when your sales floor is empty."
         />
       </Reveal>
 
