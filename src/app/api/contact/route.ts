@@ -88,7 +88,14 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const detail = await response.text();
       console.error(`[contact] Resend rejected the send: ${response.status} ${detail}`);
-      return NextResponse.json({ ok: false, error: "send_failed" }, { status: 502 });
+      // Resend's rejection reason is returned alongside the error. It names the
+      // misconfiguration (unverified domain, sandbox recipient restriction) and
+      // contains no credentials. The form UI ignores it; it exists so a failure
+      // can be diagnosed from a single curl instead of a log hunt.
+      return NextResponse.json(
+        { ok: false, error: "send_failed", detail: detail.slice(0, 400) },
+        { status: 502 },
+      );
     }
 
     return NextResponse.json({ ok: true });
