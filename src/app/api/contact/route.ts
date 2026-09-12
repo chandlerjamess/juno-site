@@ -12,8 +12,16 @@ import { NextResponse, type NextRequest } from "next/server";
  */
 
 const TO = process.env.CONTACT_TO_EMAIL ?? "sales@junosolutions.co";
-// Must be a domain verified in Resend. Their sandbox sender works before that.
-const FROM = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+/*
+ * Must be an address on a domain verified in Resend. Resend's sandbox sender
+ * (onboarding@resend.dev) is not a usable fallback here: it refuses to deliver
+ * to anyone but the account owner, so it would fail on exactly the address this
+ * form exists to reach.
+ *
+ * Replies go to the prospect via reply_to, so this mailbox never needs to
+ * receive anything.
+ */
+const FROM = process.env.CONTACT_FROM_EMAIL ?? "noreply@junosolutions.co";
 
 interface Payload {
   name?: string;
