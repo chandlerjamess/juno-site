@@ -68,6 +68,9 @@ export default function ContactForm() {
   const [values, setValues] = useState<Values>(initialValues);
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
+  const [sendFailed, setSendFailed] = useState(false);
 
   const set = (field: FieldName) => (value: string) => {
     setValues((prev) => ({ ...prev, [field]: value }));
@@ -75,7 +78,7 @@ export default function ContactForm() {
     setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
   };
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const found = validate(values);
     setErrors(found);
@@ -88,11 +91,27 @@ export default function ContactForm() {
       return;
     }
 
-    // TODO: Wire this up to a real destination — form endpoint, CRM webhook,
-    // or an API route. Nothing is sent anywhere today; this is a static site
-    // and `values` is discarded after this point.
-    setSubmitted(true);
-    setValues(initialValues);
+    setSending(true);
+    setSendFailed(false);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, website: honeypot }),
+      });
+
+      if (!response.ok) throw new Error(String(response.status));
+
+      setSubmitted(true);
+      setValues(initialValues);
+    } catch {
+      // Never show a success screen for a message that did not arrive. Someone
+      // who believes they have reached you will not follow up.
+      setSendFailed(true);
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -161,7 +180,7 @@ export default function ContactForm() {
     ) : null;
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit} noValidate className="max-w-2xl">
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="relative max-w-2xl">
       <div className="grid gap-8 sm:grid-cols-2">
         <div>
           {label("name", "Name")}
@@ -245,8 +264,37 @@ export default function ContactForm() {
         </div>
       </div>
 
+      {/* Never shown to a person; anything typed here is a bot. */}
+      <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor={`${uid}-website`}>Website</label>
+        <input
+          id={`${uid}-website`}
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
+      {sendFailed ? (
+        <p role="alert" className="mt-8 border border-grey-200 bg-grey-50 p-4 text-sm leading-relaxed text-ink">
+          That didn&rsquo;t send. Nothing reached us, so please email{" "}
+          <a
+            href="mailto:sales@junosolutions.co"
+            className="underline decoration-grey-400 underline-offset-4 hover:decoration-ink"
+          >
+            sales@junosolutions.co
+          </a>{" "}
+          directly and we&rsquo;ll pick it up from there.
+        </p>
+      ) : null}
+
       <div className="mt-10 flex flex-wrap items-center gap-6">
-        <Button type="submit">Book a call</Button>
+        <Button type="submit" disabled={sending}>
+          {sending ? "Sending…" : "Book a call"}
+        </Button>
         <p className="text-sm text-grey-600">
           We reply within one business day.
         </p>
